@@ -11,10 +11,10 @@ class RecipeApp extends Component {
       recipes: [
         {
           id:1,
-          title: "Veg Burger",
+          title: "Hamburger",
           instructions: "Pressure cook carrots, peas and corn.Add the spices.Add mashed potatoes.Shallow fry the patties. Prepare the burger.Add sliced ​​onions,cucumber and tomatoes.",
           ingredients: ["sliced ​​onion","sliced ​​tomato","teaspoon refined oil","teaspoon powdered red chilli","cheese slices","tablespoons breadcrumbs"],
-          img: "https://images.immediate.co.uk/production/volatile/sites/2/2020/04/Cheeseburger-74e8cde.jpg"
+          img: "https://hips.hearstapps.com/hmg-prod/images/copycat-shake-shack-burger-4-min-1649427734.jpg"
         },
         {
           id:2,
@@ -35,6 +35,8 @@ class RecipeApp extends Component {
       nextRecipeId:4,
       showform:false
     }
+    this.handleSave = this.handleSave.bind(this)
+    this.onDelete = this.onDelete.bind(this)
   }
 
   handleSave = ((recipe) => {
@@ -48,6 +50,11 @@ class RecipeApp extends Component {
     })
   })
 
+  onDelete = ((id) => {
+    const recipes = this.state.recipes.filter(recipe => recipe.id !== id)
+    this.setState({recipes})
+  })
+
   render(){
     const {showform} = this.state
     return (
@@ -58,7 +65,7 @@ class RecipeApp extends Component {
             onSave={this.handleSave}
             onClose={() => this.setState({showform:false})}
         /> : null} 
-        <RecipeList recipes={this.state.recipes}/>
+        <RecipeList onDelete={this.onDelete} recipes={this.state.recipes}/>
       </div>
     );
   }
